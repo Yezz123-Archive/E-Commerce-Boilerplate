@@ -7,10 +7,14 @@ SITE_ID = 1
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = []
 
+
+NAME_REGEX = r"^[A-Za-zÁÇÉÍÓÚÑÜáçéíóúñü\.\,\'\-\ ]+$"
+PASSWORD_REGEX = r"^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$"
+PASSWORD_RESET_TIMEOUT_DAYS = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -61,22 +65,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
-if "DATABASE_URL" in os.environ:
-    DATABASES = {'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL'))}
-else:
-    print("Database URL not found. Using SQLite instead")
+if DEBUG:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-            'TEST': {
-                'NAME': 'app',
-            },
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": dj_database_url.config.get("database", "DATABASE_NAME") + ".sqlite3",
         }
     }
-
-DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": dj_database_url.config.get("database", "DATABASE_NAME"),
+            "USER": dj_database_url.config.get("database", "DATABASE_USER"),
+            "PASSWORD": dj_database_url.config.get("database", "DATABASE_PASSWORD"),
+            "HOST": "localhost",
+            "PORT": "",
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
