@@ -1,11 +1,10 @@
 import os
-import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SITE_ID = 1
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = '6sag&yt+t7&)q!$!d$63(z(&57yx=wz=s*o)l_q338a0vlnx1q'
 
 DEBUG = os.environ.get('DEBUG', True)
 
@@ -65,24 +64,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": dj_database_url.config.get("database", "DATABASE_NAME") + ".sqlite3",
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'app',
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": dj_database_url.config.get("database", "DATABASE_NAME"),
-            "USER": dj_database_url.config.get("database", "DATABASE_USER"),
-            "PASSWORD": dj_database_url.config.get("database", "DATABASE_PASSWORD"),
-            "HOST": "localhost",
-            "PORT": "",
-        }
-    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
