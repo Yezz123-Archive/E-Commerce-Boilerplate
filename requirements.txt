@@ -7,7 +7,7 @@ certifi
 chardet
 click
 colorama
-dj-database-url=
+dj-database-url
 Django
 django-forms-bootstrap
 django-storages
