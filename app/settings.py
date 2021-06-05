@@ -9,8 +9,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = [os.environ.get('C9_HOSTNAME'),
-                 'conor-dev-summaries.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
@@ -119,10 +118,3 @@ STATICFILES_DIRS = (
 
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
 STRIPE_SECRET = os.getenv('STRIPE_SECRET')
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-# TO RUN LOCALLY HAVE THESE TWO UNCOMMENTED #
-# STATIC_URL = '/static/'
-# MEDIA_URL = '/media/'
